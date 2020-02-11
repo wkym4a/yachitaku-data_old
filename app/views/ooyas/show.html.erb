@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<h2>大家情報</h2>
+<%= link_to '大家情報編集', edit_ooya_path(@ooya), class: 'btn btn-primary' %>
+
+<p>
+  <strong>名前:</strong>
+  <%= @ooya.full_name + "(#{@ooya.full_name_kana})" %>
+</p>
+
+<p>
+  <strong>住所:</strong>
+  <%= @ooya.zip_cd_show %>
+  <%= @ooya.address1 %>
+  <%= @ooya.address2 %>
+</p>
+
+<p>
+  <strong>電話:</strong>
+  <%= @ooya.tel %>
+</p>
+
+<p>
+  <strong>携帯:</strong>
+  <%= @ooya.mobile %>
+</p>
+
+<p>
+  <strong>備考:</strong>
+  <%= @ooya.memo %>
+</p>
+
+
+<h3>この大家が所有している建物</h3>
+<% @buildings.each do |building| %>
+  <p>
+    <%= building.name %>
+    <%= link_to "建物情報編集", edit_building_path(building.id), class: 'btn btn-primary'  %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', ooyas_path %>

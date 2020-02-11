@@ -1,0 +1,117 @@
+<%= form_with(model: ooya, local: true) do |form| %>
+  <% if ooya.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ooya.errors.count, "error") %> prohibited this ooya from being saved:</h2>
+
+      <ul>
+        <% ooya.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="bisecting_box">
+    <div class="bisecting_1">
+      <%= form.label :surname,class: "bisecting_content_1" %>
+      <%= form.text_field :surname  ,class: "bisecting_content_2"%>
+    </div>
+
+    <div class="bisecting_2">
+      <%= form.label :name  ,class: "bisecting_content_1"%>
+      <%= form.text_field :name  ,class: "bisecting_content_2"%>
+    </div>
+  </div>
+  <br>
+  <div class="bisecting_box">
+    <div class="bisecting_1">
+      <%= form.label :surname_kana,class: "bisecting_content_1" %>
+      <%= form.text_field :surname_kana  ,class: "bisecting_content_2"%>
+    </div>
+
+    <div class="bisecting_2">
+      <%= form.label :name_kana  ,class: "bisecting_content_1"%>
+      <%= form.text_field :name_kana  ,class: "bisecting_content_2"%>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="bisecting_box">
+    <div class="bisecting_1">
+      <%= form.label :zip_cd,class: "bisecting_content_1" %>
+      <%= form.text_field :zip_cd  ,class: "bisecting_content_2"%>
+    </div>
+
+    <div class="bisecting_2">
+      <%= form.label :address1  ,class: "bisecting_content_1"%>
+      <%= form.text_field :address1  ,class: "bisecting_content_2"%>
+    </div>
+  </div>
+
+  <div class="bisecting_box">
+    <div class="bisecting_1">
+    </div>
+
+    <div class="bisecting_2">
+      <%= form.label :address2  ,class: "bisecting_content_1"%>
+      <%= form.text_field :address2  ,class: "bisecting_content_2"%>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="bisecting_box">
+    <div class="bisecting_1">
+      <%= form.label :tel  ,class: "bisecting_content_1"%>
+      <%= form.text_field :tel  ,class: "bisecting_content_2"%>
+    </div>
+
+    <div class="bisecting_2">
+      <%= form.label :mobile  ,class: "bisecting_content_1"%>
+      <%= form.text_field :mobile  ,class: "bisecting_content_2"%>
+    </div>
+  </div>
+
+  <div class="line_info_multiline">
+    <%= form.label  :memo,class: "bisecting_content_1" %>
+    <%= form.text_area :memo  ,class: "bisecting_content_2" %>
+  </div>
+
+  <br>
+  <h4>【所有する物件】</h4>
+  <table class="table table-striped table-bordered table-hover">
+    <tbody>
+      <tr>
+        <th>建物名</th>
+        <th>積水区分</th>
+        <th>種別</th>
+        <th></th>
+        <th>建物編集ボタン（予定）</th>
+      </tr>
+      <%= form.nested_fields_for :buildings, ooya.buildings.order(:name) , wrapper_tag: :tr do |q| %>
+         <td><%= q.text_field   :name,     class: 'form-control' %></td>
+         <td>
+           <%= q.radio_button :sekisui_div , :general  %>
+           <%= form.label :一般 %>
+
+           <%= q.radio_button :sekisui_div ,:sekisui %>
+           <%= form.label :積水 %>
+        </td>
+        <td>
+          <%= q.select :type_div, Building.type_divs.keys.map{|k| [I18n.t("enums.building.type_div.#{k}"),k]} , {} ,class: ""%>
+        </td>
+        <td><%= q.remove_nested_fields_link '物件削除', class: 'btn btn-danger', role: 'button' %></td>
+
+        <td><%= "sqae" if q.object.id.present? %></td>
+      <% end %>
+     </tbody>
+   </table>
+   <%= form.add_nested_fields_link :buildings, 'Add new', class: 'btn btn-primary', role: 'button' %>
+
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

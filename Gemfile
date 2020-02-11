@@ -15,6 +15,16 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'webpacker'
 
+#bootstrapをgemで追加
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
+
+#親子を一括登録するためのnestedfield
+gem 'nested_form_fields'
+
+#環境ファイル「.env」を管理するために追加
+gem 'dotenv-rails'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
