@@ -1,4 +1,5 @@
 class OoyasController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ooya, only: [:show, :edit, :update, :destroy]
 
   def index
